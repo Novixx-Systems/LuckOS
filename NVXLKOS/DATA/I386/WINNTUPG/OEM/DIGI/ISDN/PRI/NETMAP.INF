@@ -1,0 +1,30 @@
+; -----------------------------------------------------------------
+; netmap.inf
+;
+; Digi ISDN PRI cards
+; -----------------------------------------------------------------
+
+[version]
+signature="$Windows NT$"
+
+[OemNetAdapters]
+; ----------------------------------------
+; Digi ISDN PRI Cards
+DigiDataFirePRIme = 0,DigiMap
+
+[DigiMap]
+ValueName=DeviceId
+ValueTYpe=4
+PCI\VEN_114f&Dev_000c = 12
+PCI\VEN_114f&Dev_000a = 10
+PrimeT1ISA = ValueNotPresent
+
+[OemUpgradeSupport]
+; ----------------------------------------
+; Digi ISDN Cards
+PCI\VEN_114F&DEV_000C  = digpriup.dll
+PCI\VEN_114F&DEV_000A  = digpriup.dll
+PrimeT1ISA = digpriup.dll
+
+
+

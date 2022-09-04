@@ -1,0 +1,16 @@
+The following Epson printers, which might have been installed on your system, might not function properly under Microsoft Windows XP using the printer drivers that are currently installed:
+
+EPSON Stylus COLOR 1520
+EPSON Stylus COLOR 400
+EPSON Stylus COLOR 600
+EPSON Stylus COLOR 850
+EPSON Stylus COLOR 850ne
+EPSON Stylus COLOR 860
+EPSON Stylus Scan 2500
+EPSON Stylus COLOR 300
+EPSON Stylus COLOR 800
+EPSON Stylus COLOR 3000
+
+If you uninstall this driver before upgrade, Windows XP Setup will install a compatible driver.
+
+To obtain a more recent version of this printer driver, visit the manufacturer's Web site at http://www.microsoft.com/isapi/redir.dll?prd=whistler&ar=Printing&O1=epson. Web addresses can change, so you might be unable to connect to this Web site.

@@ -1,0 +1,12 @@
+The following Alps printers, which might have been installed on your system, will not function properly under Microsoft Windows XP using the printer drivers that are currently installed:
+
+Alps MD-1000
+Alps MD-1300
+Alps MD-2010
+Alps MD-2300
+Alps MD-4000
+Alps MD-5000
+
+You can replace the driver with an updated version, or Windows XP Setup will install a compatible driver.
+
+To obtain a more recent version of this printer driver visit the manufacturer's Web site at http://www.microsoft.com/isapi/redir.dll?prd=whistler&ar=Printing&O1=alps. Web addresses can change, so you might be unable to connect to this Web site.

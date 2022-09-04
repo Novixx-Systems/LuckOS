@@ -1,0 +1,10 @@
+[version]
+signature="$Windows NT$"
+
+[OemNetAdapters]
+TJISDN=PCI\VEN_E159&DEV_0001
+
+[OemUpgradeSupport]
+PCI\VEN_E159&DEV_0001=tjupg.dll
+
+                               

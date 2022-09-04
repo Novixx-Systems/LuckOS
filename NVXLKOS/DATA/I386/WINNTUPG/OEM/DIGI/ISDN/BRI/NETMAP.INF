@@ -1,0 +1,24 @@
+; -----------------------------------------------------------------
+; netmap.inf
+;
+; Digi ISDN cards
+; -----------------------------------------------------------------
+
+[version]
+signature="$Windows NT$"
+
+[OemNetAdapters]
+; ----------------------------------------
+; Digi ISDN Cards
+DATAFIREU	    = DataFireIsa1U
+DATAFIREST	    = DataFireIsa1ST
+DATAFIRE4ST	    = DataFireIsa4ST
+
+[OemUpgradeSupport]
+; ----------------------------------------
+; Digi ISDN Cards
+DataFireIsa1U          = digiupg.dll
+DataFireIsa1ST         = digiupg.dll
+DataFireIsa4ST         = digiupg.dll
+
+

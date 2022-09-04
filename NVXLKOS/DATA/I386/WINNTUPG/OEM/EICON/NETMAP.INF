@@ -1,0 +1,94 @@
+; -----------------------------------------------------------------
+; netmap.inf
+;
+; Eicon adapters
+; -----------------------------------------------------------------
+
+[version]
+signature="$Windows NT$"
+
+; -----------------------------------------------------------------
+; Oem cards
+;
+[OemNetAdapters]
+Diehl_DIVAAUT      = 0, EICON_DIVACARDS
+Diehl_DIVA         = 0, EICON_DIVACARDS
+Diehl_DIVA20	   = 0, EICON_DIVACARDS
+Diehl_DIVALOW      = 0, EICON_DIVACARDS
+Diehl_DIVAPCM      = 0, EICON_DIVACARDS
+Diehl_DIVAPICCOLA  = 0, EICON_DIVACARDS
+Diehl_DIVAPRO      = 0, EICON_DIVACARDS
+Diehl_DIVAPRO20    = 0, EICON_DIVACARDS
+Diehl_DIVAPROPCM   = 0, EICON_DIVACARDS
+Diehl_MAESTRA      = 0, EICON_DIVACARDS
+Diehl_MAESTRAQUAD  = 0, EICON_DIVACARDS
+Diehl_MAESTRAPRI   = 0, EICON_DIVACARDS
+Diehl_S2M          = 0, EICON_DIVACARDS
+Diehl_QUADRO       = 0, EICON_DIVACARDS
+Diehl_S            = 0, EICON_DIVACARDS
+Diehl_SCOM         = 0, EICON_DIVACARDS
+Diehl_SX           = 0, EICON_DIVACARDS
+Diehl_SXN          = 0, EICON_DIVACARDS
+
+
+[EICON_DIVACARDS]
+
+ValueName  = "CardOrdinal"
+Valuetype = 4        ;REG_DWORD
+
+"DiDivaIsa"                            = 0x01
+"PCMCIA\DIEHL_ISDN-ISDN-DIVA/PCM-348F" = 0x02
+"ISAPNP\GDI0051"                       = 0x05
+"ISAPNP\GDI0031"                       = 0x03
+"PCMCIA\EICON_DIEHL-DIVA_PRO-2610"     = 0x04
+"ISAPNP\GDI0071"                       = 0x1a
+"PCI\VEN_1133&DEV_E002"                = 0x08
+"ISAPNP\GDI0091"                       = 0x1b
+"PCI\VEN_1133&DEV_E004"                = 0x1c
+"ISAPNP\GDI0061"                       = 0x1d
+"PCI\VEN_1133&DEV_E001"                = 0x07
+"ISAPNP\GDI0081"                       = 0x1e
+"PCI\VEN_1133&DEV_E003"                = 0x1f
+"ISAPNP\GDI0041"                       = 0x14
+"DiSIsa"                               = 0xa
+"DiSxIsa"                              = 0xc
+"DiSxnIsa"                             = 0xe
+"DiSComIsa"                            = 0x10
+"DiQuadroIsa"                          = 0x9
+"DiPrimaryIsa"                         = 0x12
+"PCI\VEN_1133&DEV_E010"                = 0x15
+"PCI\VEN_1133&DEV_E012"                = 0x16
+"PCI\VEN_1133&DEV_E014"                = 0x17
+"ISAPNP\GDI00A1"                       = 0x25
+"PCI\VEN_1133&DEV_E005"                = 0x27
+
+; -----------------------------------------------------------------
+; Upgrade support for OEM cards
+;
+[OemUpgradeSupport]
+"DiDivaIsa"                            = dint5upg.dll
+"PCMCIA\DIEHL_ISDN-ISDN-DIVA/PCM-348F" = dint5upg.dll
+"ISAPNP\GDI0051"                       = dint5upg.dll
+"ISAPNP\GDI0031"                       = dint5upg.dll
+"PCMCIA\EICON_DIEHL-DIVA_PRO-2610"     = dint5upg.dll
+"ISAPNP\GDI0071"                       = dint5upg.dll
+"PCI\VEN_1133&DEV_E002"                = dint5upg.dll
+"ISAPNP\GDI0091"                       = dint5upg.dll
+"PCI\VEN_1133&DEV_E004"                = dint5upg.dll
+"ISAPNP\GDI0061"                       = dint5upg.dll
+"PCI\VEN_1133&DEV_E001"                = dint5upg.dll
+"ISAPNP\GDI0081"                       = dint5upg.dll
+"PCI\VEN_1133&DEV_E003"                = dint5upg.dll
+"ISAPNP\GDI0041"                       = dint5upg.dll
+"DiSIsa"                               = dint5upg.dll
+"DiSxIsa"                              = dint5upg.dll
+"DiSxnIsa"                             = dint5upg.dll
+"DiSComIsa"                            = dint5upg.dll
+"DiQuadroIsa"                          = dint5upg.dll
+"DiPrimaryIsa"                         = dint5upg.dll
+"PCI\VEN_1133&DEV_E010"                = dint5upg.dll
+"PCI\VEN_1133&DEV_E012"                = dint5upg.dll
+"PCI\VEN_1133&DEV_E014"                = dint5upg.dll
+"ISAPNP\GDI00A1"                       = dint5upg.dll
+"PCI\VEN_1133&DEV_E005"                = dint5upg.dll
+

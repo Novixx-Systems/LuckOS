@@ -1,0 +1,71 @@
+The following Epson printers, which might have been installed on your system, will not function properly under Microsoft Windows XP using the printer drivers that are currently installed:
+
+EPSON Stylus COLOR 640
+EPSON Stylus COLOR 900
+EPSON Stylus Photo 1270
+EPSON Stylus Photo 700
+EPSON Stylus Photo EX
+EPSON Stylus 1500
+EPSON Stylus COLOR 500
+EPSON Stylus Pro
+EPSON Stylus Pro XL
+EPSON Stylus Pro XL+
+EPSON Stylus Pro 5000
+EPSON Stylus COLOR 440
+EPSON Stylus COLOR 740
+EPSON Stylus Photo 750
+EPSON Stylus Photo 1200
+EPSON Stylus Pro 9000
+EPSON IP-100
+EPSON Stylus Photo EX2
+EPSON Stylus Photo 710
+EPSON Stylus Photo 720
+EPSON Stylus Photo EX3
+EPSON Stylus Photo 870
+EPSON Stylus COLOR 1160
+EPSON Stylus Pro 7000
+EPSON Stylus COLOR 480
+EPSON Stylus COLOR 660
+EPSON Stylus COLOR 460
+EPSON Stylus COLOR 860
+EPSON Stylus COLOR 760
+EPSON Stylus COLOR 670
+EPSON Stylus Photo 2000P
+EPSON Stylus Pro 7500
+EPSON Stylus Pro 9500
+EPSON Stylus Pro 10000
+EPSON Stylus Pro 10000CF
+EPSON Stylus COLOR 680
+EPSON Stylus COLOR 777
+EPSON Stylus COLOR 880
+EPSON Stylus COLOR 980
+EPSON Stylus Pro 5500
+EPSON Stylus Photo 780
+EPSON Stylus Photo 790
+EPSON Stylus Photo 890
+EPSON Stylus Photo 1280
+EPSON Stylus Photo 1290
+
+You can replace the driver with an updated version, or Windows XP Setup will install a compatible driver.
+
+Note: Windows XP does not have a compatible driver for the following models:
+EPSON Stylus Pro 9000
+EPSON IP-100
+EPSON Stylus Photo EX2
+EPSON Stylus Photo 710
+EPSON Stylus Photo 870
+EPSON Stylus Pro 7000
+EPSON Stylus Pro 7500
+EPSON Stylus Pro 9500
+EPSON Stylus Pro 10000
+EPSON Stylus Pro 10000CF
+EPSON Stylus COLOR 880
+EPSON Stylus Pro 5500
+EPSON Stylus Photo 780
+EPSON Stylus Photo 790
+EPSON Stylus Photo 890
+EPSON Stylus Photo 1280
+EPSON Stylus Photo 1290
+
+
+To obtain a more recent version of this printer driver visit the manufacturer's Web site at http://www.microsoft.com/isapi/redir.dll?prd=whistler&ar=Printing&O1=epson. Web addresses can change, so you might be unable to connect to this Web site.

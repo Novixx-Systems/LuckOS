@@ -1,0 +1,36 @@
+The following Epson printers, which might have been installed on your system, will not function properly under Microsoft Windows XP using the printer drivers that are currently installed:
+
+EPSON  ActionLaser 1600
+EPSON  EPL-3000
+EPSON  EPL-4300 (PCL)
+EPSON  EPL-5200 (PCL)
+EPSON  EPL-5200+
+EPSON  EPL-5500
+EPSON  EPL-5600
+EPSON  EPL-8100 (PCL)
+EPSON  EPL-9000
+EPSON  EPL-N1200
+EPSON  EPL-N2000
+EPSON EPL-C8000 Advanced
+EPSON EPL-C8200 Advanced
+EPSON AL-C2000 Advanced
+EPSON AL-C8500 Advanced
+EPSON EPL-5700 Advanced
+EPSON EPL-5800 Advanced
+EPSON EPL-N1600 Advanced
+EPSON EPL-N2050 Advanced
+EPSON EPL-N2700 Advanced
+EPSON EPL-N2750 Advanced
+EPSON EPL-N4000 Advanced
+EPSON EPL-N4000+ Advanced
+EPSON EPL-5700i Advanced
+EPSON EPL-5700L Advanced
+
+You can replace the driver with an updated version, or Windows XP Setup will install a compatible driver.
+
+Note: Windows XP does not have a compatible driver for the following models:
+EPSON EPL-5700i Advanced
+EPSON EPL-5700L Advanced
+
+
+To obtain a more recent version of this printer driver, visit the manufacturer's Web site at http://www.microsoft.com/isapi/redir.dll?prd=whistler&ar=Printing&O1=epson. Web addresses can change, so you might be unable to connect to this Web site.

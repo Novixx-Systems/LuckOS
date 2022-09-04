@@ -1,0 +1,46 @@
+The following Lexmark printers, which might have been installed on your system, will not function properly under Microsoft Windows XP using the printer drivers that are currently installed:
+
+Lexmark Optra C
+Lexmark Optra Color 1200
+Lexmark Optra E
+Lexmark Optra E+
+Lexmark Optra E310
+Lexmark Optra Ep
+Lexmark Optra K 1220
+Lexmark Optra L
+Lexmark Optra Lx
+Lexmark Optra Lx plus
+Lexmark Optra Lxi
+Lexmark Optra Lxi plus
+Lexmark Optra M410
+Lexmark Optra N
+Lexmark Optra R
+Lexmark Optra R plus
+Lexmark Optra Rt
+Lexmark Optra Rt plus
+Lexmark Optra Rx
+Lexmark Optra S 1250
+Lexmark Optra S 1255
+Lexmark Optra S 1255 plus
+Lexmark Optra S 1620
+Lexmark Optra S 1625
+Lexmark Optra S 1625 plus
+Lexmark Optra S 1650
+Lexmark Optra S 1855
+Lexmark Optra S 1855 plus
+Lexmark Optra S 2420
+Lexmark Optra S 2450
+Lexmark Optra S 2455
+Lexmark Optra S 2455 plus
+Lexmark Optra SC 1275
+Lexmark Optra Se 3455
+Lexmark Optra Se 3455 plus
+Lexmark Optra T610
+Lexmark Optra T612
+Lexmark Optra T614
+Lexmark Optra T616
+Lexmark Optra W810
+
+You can replace the driver with an updated version, or Windows XP Setup will install a compatible driver.
+
+To obtain a more recent version of this printer driver, visit the manufacturer's Web site at http://www.microsoft.com/isapi/redir.dll?prd=whistler&ar=Printing&O1=lexmark. Web addresses can change, so you might be unable to connect to this Web site.

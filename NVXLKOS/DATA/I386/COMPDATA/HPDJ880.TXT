@@ -1,0 +1,21 @@
+The following Hewlett-Packard printers, which might have been installed on your system, will not function properly under Microsoft Windows XP using the printer drivers that are currently installed:
+
+HP DeskJet 880C Series Printer
+HP DeskJet 930C Series
+HP DeskJet 950C Series
+HP DeskJet 970C Series
+HP DeskJet 1220C Printer
+HP DeskJet 840C Series
+HP Deskjet 990c Series
+HP DeskJet 350 Printer
+HP Deskjet 825c Series
+HP Deskjet 656c Series
+
+You can replace the driver with an updated version, or Windows XP Setup will install a compatible driver.
+
+Note: Windows XP does not have a compatible driver for the following models:
+HP Deskjet 825c Series
+HP Deskjet 656c Series
+
+
+To obtain a more recent version of this printer driver visit the manufacturer's Web site at http://www.microsoft.com/isapi/redir.dll?prd=whistler&ar=Printing&O1=hp. Web addresses can change, so you might be unable to connect to this Web site.

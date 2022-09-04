@@ -1,0 +1,437 @@
+; -----------------------------------------------------------------
+;
+; NETMAP.INF
+;
+; Maps pre-Windows 2000 InfID of netcards to its Windows 2000 equivalent
+; used by netupgrd.dll during upgrade to Windows 2000
+;
+; Copyright (c) 1993-1997, Microsoft Corporation
+;
+; -----------------------------------------------------------------
+
+[version]
+signature="$Windows NT$"
+
+; -----------------------------------------------------------------
+; Structure of netmap.inf file
+;
+; We use netmap.inf file to map pre-Windows 2000 InfID of a netcard to its
+; Windows 2000 InfID (PnPID).
+;
+; This file has a number of top-level sections.
+; Each top-level section holds entries for mapping netcards of a particular
+; bus type. the format of each line is
+;
+; <pre-Windows 2000 InfID>=<Windows 2000 InfID>
+; OR
+; <pre-Windows 2000 InfID>=<mapping-method-#>,<section-name>
+;
+; the former is a 1-1 mapping while the latter offers a way to map a single
+; preWindows 2000 InfID to multiple InfIDs
+;
+; Known issues:
+; -------------
+; - Any of the sections must not be empty. this is a limitation of NT SetupAPI.
+; - the new InfID must not begin with a number
+;   e.g. we cannot have a mapping such as the following
+;        Old3ComId = 3ComNewId  ; error --> begins with 3 (a number)
+;
+;  Mapping method 0
+;  ----------------
+;  This method is used when a single pre-Windows 2000 InfID represents more than one
+;  net card which means that a single pre-Windows 2000 InfID is mapped onto many
+;  Windows 2000 PnPIDs. The only way to differentiate between the different types of
+;  net cards is to inspect a single value under the parameters key.
+;
+;  In this mapping method, two keys are required to be specified for
+;  each net card.
+;  - ValueName: this specifies the value to be inspected under the Parameters key
+;  - ValueType: this specifies the type of ValueName
+;
+;  there can be any number of additional keys in this section.
+;  each such line is of the form
+;  <Windows 2000 InfID>=<some value of type ValueType>
+;
+;  we first find out the value of ValueName
+;  then we enumerate each key in this section to see if the value matches the
+;  value of any of the keys.
+;  if we find a match, then the name of the found key represents <Windows 2000 InfID>
+;
+;  e.g.
+;  5 flavors of the ELNK3MCA card are represented by the same InfID in NT4
+;  the only way to distinguish between them is to inspect the McaPosId value
+;  for this card we have the mapping section defined as follows:
+;
+;  [McaAdapters]
+;  ELNK3MCA    = 0,ELNK3MCA   ; 0 --> mapping method 0
+;  ... other mca card entries ...
+;
+;  [ELNK3MCA]
+;  ValueName= McaPosId
+;  ValueType= 4             ; REG_DWORD
+;  mca_627c = 0x0000627c    ; if value of McaPosId is 0x627c then PnPID == mca_627c
+;  mca_627d = 0x0000627d
+;  mca_61db = 0x000061db
+;  mca_62f6 = 0x000062f6
+;  mca_62f7 = 0x000062f7
+;
+
+; -----------------------------------------------------------------
+; PCI cards
+;
+[PciAdapters]
+3COM           = PCI\VEN_10b7&DEV_9200 ;3Com EtherLink XL 10/100 PCI For Complete PC Management 
+3C900          = PCI\VEN_10b7&DEV_9000 ;3Com EtherLink XL PCI 10Mb Adapter (3C900)
+3C905          = PCI\VEN_10b7&DEV_9055 ;3Com Fast EtherLink XL PCI 10/100Mb Adapter (3C905)
+3C905B         = PCI\VEN_10b7&DEV_9055
+3C905C         = PCI\VEN_10b7&DEV_9200
+3C90x          = PCI\VEN_10b7&DEV_9050 ;3Com Fast EtherLink XL PCI 10/100Mb Adapter (3C905)
+3C980	       = PCI\VEN_10B7&DEV_9800 ;3Com Fast EtherLink XL Server (3C980)
+Convoy         = null
+WLBS           = MS_WLBSMP
+A2560          = PCI\VEN_8086&DEV_1229 ;Intel 8255x-based PCI Ethernet Adapter (10/100)
+A2560PCI       = PCI\VEN_1266&DEV_0001 ;ATI AT-2560 Series PCI/100 Ethernet Adapter (82557B)
+ALN315	       = PCI\VEN_1011&DEV_0019 ;AcerLAN ALN-315 10/100Base-TX Fast Ethernet Adapter
+ALN325	       = PCI\VEN_10EC&DEV_8139 ;AcerLAN ALN-325 10/100 Base-TX Fast Ethernet Adapter
+ALTEON	       = PCI\VEN_12AE&DEV_0001 ;Alteon Networks ACEnic PCI Gigabit Ethernet Adapter
+AMB            = PCI\VEN_1011&DEV_0019 ;AmbiCom 10/100 Ethernet CardBus PC Card (AMB8100)
+AMDPCI         = PCI\VEN_1022&DEV_2000 ;AMD PCNET Family Ethernet Adapter
+ANA62011TX     = PCI\VEN_9004&DEV_6915 ;Single 10/100 Mb/s UTP Port
+ANA62022       = PCI\VEN_9004&DEV_6915 ;Adaptec ANA62022 64-bit 2 port PCI 10/100 Mb/s UTP Port
+ANA62044       = PCI\VEN_9004&DEV_6915 ;Adaptec ANA62044 64-bit 4 port PCI 10/100 Mb/s UTP Port
+ANA69011TX     = PCI\VEN_9004&DEV_6915 ;Single 10/100 Mb/s UTP Port
+AT2450         = PCI\VEN_1022&DEV_2000 ;AMD PCNET PCI
+AT2500         = PCI\VEN_10EC&DEV_8139 ;ATI AT-2500TX PCI Fast Ethernet Adapter
+C20            = PCI\VEN_115D&DEV_0003&SUBSYS_01811179                   ;Toshiba 10+100 CardBus Ethernet PC Card
+CBE            = PCI\VEN_1011&DEV_0019                   ;Xircom CardBus Ethernet 10/100
+CBE            = PCI\VEN_115D&DEV_0003&SUBSYS_0181115D                   ;Xircom CardBus Ethernet II 10/100
+CBE            = PCI\VEN_115D&DEV_0003&SUBSYS_1181115D                   ;Xircom CardBus Ethernet 100 + Modem 56
+CBENT          = PCI\VEN_1011&DEV_0019                   ;Xircom CardBus Ethernet 10/100
+CBENT          = PCI\VEN_115D&DEV_0003&SUBSYS_0181115D                   ;Xircom CardBus Ethernet II 10/100
+CBENT          = PCI\VEN_115D&DEV_0003&SUBSYS_1181115D                   ;Xircom CardBus Ethernet 100 + Modem 56
+CPQNF3         = PCI\VEN_0E11&DEV_AE43 ;Compaq Integrated NetFlex-3 10 T UTP Module Network Adapter
+CPQPCI         = PCI\VEN_8086&DEV_1229 ;Intel 8255x-based PCI Ethernet Adapter (10/100)
+CPQPCI2	       = PCI\VEN_10B6&DEV_0003 ;Compaq NC4621 PCI 4/16 WOL
+CPX21140       = PCI\VEN_1011&DEV_0009 ;Compex FreedomLINE PCI Fast Ethernet Adapter
+DC21040        = PCI\VEN_1011&DEV_0002 ;DEC PCI Ethernet DECchip 21040
+DC21041        = PCI\VEN_1011&DEV_0014 ;DEC PCI Ethernet DECchip 21041
+DC21140        = PCI\VEN_1011&DEV_0009 ;DEC PCI Ethernet DECchip 21140
+DC21141        = PCI\VEN_1011&DEV_0014 ;DEC PCI Fast Ethernet DECchip 21141
+DC21142        = PCI\VEN_1011&DEV_0019 ;DEC PCI Fast Ethernet DECchip 21142
+DC21143        = PCI\VEN_1011&DEV_0019 ;DEC PCI Fast Ethernet DECchip 21143
+DE434          = PCI\VEN_1011&DEV_0002 ;DEC DE434 EtherWORKS Turbo PCI TP Adapter
+DE435          = PCI\VEN_1011&DEV_0002 ;DEC DE435 EtherWORKS Turbo PCI Adapter
+DE450          = PCI\VEN_1011&DEV_0014 ;DEC DE450 EtherWORKS Turbo PCI Adapter
+DE500          = PCI\VEN_1011&DEV_0009 ;DEC DE500 Fast Ethernet PCI Adapter
+DE528	       = PCI\VEN_10EC&DEV_8029 ;D-Link DE-528 Ethernet PCI Adapter
+DEFPA          = PCI\VEN_1011&DEV_000F ;DEC FDDIcontroller/PCI
+E1000          = PCI\VEN_8086&DEV_1000 ;Intel(R) PRO/1000 Gigabit Server Adapter
+E100B          = PCI\VEN_8086&DEV_1229 ;Intel 8255x-based PCI Ethernet Adapter (10/100)
+E100BEXP       = PCI\VEN_8086&DEV_1229 ;Intel 82557-based 10/100 Ethernet PCI Adapter or compatible
+E100BPCI       = PCI\VEN_8086&DEV_1229 ;Intel 82557-based PRO Adapter
+E100BRWA       = PCI\VEN_8086&DEV_1229 ;Intel 8255x-based PCI Ethernet Adapter (10/100)
+E10PPCI        = PCI\VEN_8086&DEV_1229 ;Intel EtherExpress 10+ PCI
+ELPC575	       = PCI\VEN_10B7&DEV_5057 ;3Com Megahertz 10/100 LAN CardBus PC Card (Ethernet)
+ELPC656	       = PCI\VEN_10b7&DEV_6562 ;3Com 10-100 LAN + 56K Modem CardBus PC Card
+EN1207	       = PCI\VEN_1011&DEV_0009 ;Accton EN1207-TX
+EN1207D        = PCI\VEN_1113&DEV_1211 ;HP EN1207D-TX PCI 10/100 Fast Ethernet Adapter
+ET32NT	       = PCI\VEN_8E2E&DEV_3000 ;KTI ET32/Px Series PCI Ethernet Adapter
+F1100pci       = PCI\VEN_10C3&DEV_1100 ;Intel 8255x-based PCI Ethernet Adapter (10/100)
+FASTMAC	       = PCI\VEN_11F6&DEV_2011 ;Compex RL100ATX/10Base PCI Fast Ethernet Adapter
+HPTX           = PCI\VEN_8086&DEV_1229 ;Intel 8255x-based PCI Ethernet Adapter (10/100)
+HPTXPCI        = PCI\VEN_8086&DEV_1229 ;Intel 8255x-based PCI Ethernet Adapter (10/100)
+I82557         = PCI\VEN_8086&DEV_1229 ;Intel 8255x-based PCI Ethernet Adapter (10/100)
+IBMC	       = PCI\VEN_115D&DEV_0003 ;IBM 10/100 EtherJet CardBus Adapter
+IBMFE          = PCI\VEN_8086&DEV_1229 ;Intel 8255x-based PCI Ethernet Adapter (10/100)
+IBMFEPCI       = PCI\VEN_8086&DEV_1229 ;Intel 8255x-based PCI Ethernet Adapter (10/100)
+IBMGE          = PCI\VEN_8086&DEV_1000 ;IBM Netfinity Gigabit Ethernet SX Adapter
+IBMTRP         = PCI\VEN_1014&DEV_003E ;IBM PCI Token-Ring Adapter
+J2585A         = PCI\VEN_103C&DEV_1030 ;HP DeskDirect (J2585A) 10/100 PCI LAN Adapter
+J2585B         = PCI\VEN_103C&DEV_1031 ;HP DeskDirect (J2585B) 10/100 PCI LAN Adapter
+J2970A         = PCI\VEN_103C&DEV_1031 ;HP DeskDirect (J2970A) 10BaseT/2 PCI LAN Adapter
+J2973A         = PCI\VEN_103C&DEV_1031 ;HP DeskDirect (J2973A) 10BaseT PCI LAN Adapter
+LNE100TX       = PCI\VEN_11AD&DEV_0002 ;LinkSys LNE100TX Fast Ethernet Adapter
+M32A           = PCI\VEN_1011&DEV_0019                   ;Intel EtherExpress PRO/100 Mobile 
+MDGMPPCI       = PCI\VEN_10B6&DEV_0002 ;Madge Smart 16/4 PCI Ringnode
+MDGMPPCIBM     = PCI\VEN_10B6&DEV_0004 ;Madge Smart 16/4 PCI Ringnode (BM)
+MDGPCI3	       = PCI\VEN_10B6&DEV_0003 ;Madge Smart 16/4 PCI Ringnode Mk3
+MSMDGMPPCI     = PCI\VEN_10B6&DEV_0002 ;Madge Smart 16/4 PCI Ringnode
+MSMDGMPPCIBM   = PCI\VEN_10B6&DEV_0004 ;Madge Smart 16/4 PCI Ringnode (BM)
+MX98713	       = PCI\VEN_10d9&DEV_0512 ;Macronix MXIC MX98713 10/100 PCI Ethernet Adapter
+MX98715	       = PCI\VEN_10d9&DEV_0531 ;Macronix MXIC MX98715 10/100 PCI Ethernet Adapter
+N100           = PCI\VEN_8086&DEV_1229 ;Intel 8255x-based PCI Ethernet Adapter (10/100)
+N1000	       = PCI\VEN_8086&DEV_1000 ;Compaq NC6132 Gigabit Module
+NE100          = PCI\VEN_8086&DEV_1229 ;Intel 8255x-based PCI Ethernet Adapter (10/100)
+NE100PCI       = PCI\VEN_1266&DEV_0001 ;Microdyne NE10/100 Adapter (82557B)
+NIHCRD         = PCI\VEN_1011&DEV_0019&SUBSYS_800C1033    ;NEC PC-9821-CS01/CS01X
+NIHPCI         = PCI\VEN_1011&DEV_0019&SUBSYS_800C1033    ;NEC PC-9821-CS01/CS01X
+OCE5X_2327     = PCI\VEN_1011&DEV_0019 ;Olicom RapidFire 2327 Ethernet 10/100 PCI Adapter
+OCT2M3137      = PCI\VEN_108D&DEV_0001 ;Olicom Token-Ring PCI/II 16/4 Adapter (OC-3137)
+OCT4PND4       = PCI\VEN_108D&DEV_0006 ;Olicom RapidFire 3530 HSTR 100 PCI Server Adapter
+OCTK16         = PCI\VEN_108D&DEV_0001 ; Olicom Token-Ring PCI 16/4 Adapter (OC-3137)
+OCTK3136       = PCI\VEN_108D&DEV_0001 ;Olicom Token-Ring PCI 16/4 Adapter (OC-3136)
+OCTK3137       = PCI\VEN_108D&DEV_0001 ;Olicom Token-Ring PCI 16/4 Adapter (OC-3137)
+OCTX3136       = PCI\VEN_108D&DEV_0001 ;Olicom Token-Ring PCI 16/4 Adapter (OC-3136)
+OCTX3137       = PCI\VEN_108D&DEV_0001 ;Olicom Token-Ring PCI/II 16/4 Adapter (OC-3137)
+OCTX3139       = PCI\VEN_108D&DEV_0004 ;Olicom RapidFire 3139 Token-Ring 16/4 PCI Adapter
+OCTX3140       = PCI\VEN_108D&DEV_0004 ;Olicom RapidFire 3140 Token-Ring 16/4 PCI Adapter
+OCTX3141       = PCI\VEN_108D&DEV_0007 ;Olicom RapidFire 3141 Token-Ring 16/4 PCI Fiber Adapter
+OCTX3540       = PCI\VEN_108D&DEV_0008 ;Olicom RapidFire 3540 HSTR 100/16/4 PCI Adapter
+PCICARD	       = PCI\VEN_1011&DEV_0009 ;NETGEAR FA310TX Fast Ethernet PCI Adapter
+PCINT	       = PCI\VEN_10EC&DEV_8029 ;Allied Telesyn AT-2400 PCI Ethernet Adapter
+PRESTO	       = PCI\VEN_10B6&DEV_0007 ;Madge Presto PCI
+RTL8029        = PCI\VEN_10EC&DEV_8029 ;RTL8029-based PCI Ethernet Adapters
+RTL8139	       = PCI\VEN_10EC&DEV_8139 ;TFL LAN INC. RTL8139.SYS (110-00063-00)
+RnsFNET2300    = PCI\VEN_1011&DEV_0009 ;RNS 2300 PCI Fast Ethernet Adapter
+RnsFNET2320    = PCI\VEN_1011&DEV_0009 ;RNS 2320 PCI Adapter
+RnsFNET2340    = PCI\VEN_1011&DEV_0009 ;RNS 2340 PCI Fast Ethernet Adapter
+RocketPort     = null
+SK98WINS       = PCI\VEN_1148&DEV_4300 ;SysKonnect SK-NET Gigabit Ethernet Adapter SK-984x
+SKFPWIN	       = PCI\VEN_1148&DEV_4000 ;SysKonnect FDDI PCI Adapter
+SMC8432        = PCI\VEN_1011&DEV_0002 ;SMC PCI Ethernet DECchip 21040
+SMC8432e       = PCI\VEN_1011&DEV_0002 ;SMC PCI Ethernet DECchip 21040
+SMC8434        = PCI\VEN_1011&DEV_0002 ;SMC PCI Ethernet DECchip 21040
+SMC9332        = PCI\VEN_1011&DEV_0009 ;SMC 21140 Chipset
+SMC9332BDT     = PCI\VEN_1011&DEV_0009 ;SMC9332BDT EtherPower 10/100
+SMCPWRII       = PCI\VEN_10B8&DEV_0005 ;SMC EtherPower II 10/100
+TDKFLYR        = PCI\VEN_1011&DEV_0019&SUBSYS_001912AF                         ; TDK Flyer CardBus
+TRP	       = PCI\VEN_1014&DEV_003E ;IBM PCI Token-Ring Adapter
+VT3043	       = PCI\VEN_1106&DEV_3043 ;VIA VT86C100A PCI Fast Ethernet Adapter
+W840ND	       = PCI\VEN_1050&DEV_0840 ;Winbond W89C840 Based 100M/10M PCI Ethernet Adapter
+W89C840	       = PCI\VEN_1050&DEV_0840 ;Winbond W89C840 PCI
+
+; -----------------------------------------------------------------
+; ISA cards supported using legacy detection
+; (this list was supplied by kyleb)
+;
+; some of these entries may appear repeatedly
+; this simply means that the same InfID is used for similar versions
+; of a card. The difference can be found by reading the comment for each line
+;
+[IsaAdapters]
+
+; *****************************************************************
+; *****************************************************************
+; The entries from this section were deleted as the OS will not ship supporting legacy ISA NICs.
+; *****************************************************************
+; *****************************************************************
+
+; -----------------------------------------------------------------
+; EISA cards supported using legacy detection
+; (this list is taken from netoemdh.inf)
+;
+; some of these entries may appear repeatedly
+; this is because in netoemdh.inf file certain cards appear as
+; infid.1, infid.2 etc.
+;
+; Note: certain entries have been commented out because the corresponding
+;       entries have been commented out in netoemdh.inf file
+[EisaAdapters]
+
+; *****************************************************************
+; *****************************************************************
+; The entries from this section were deleted as the OS will not ship supporting EISA NICs.
+; *****************************************************************
+; *****************************************************************
+
+; -----------------------------------------------------------------
+; ISAPNP cards
+;
+3C515ISA    = ISAPNP\TCM5051 ; 3com 515 10/100
+E100isa     = ISAPNP\INT10C0 ; PRO/100 ISA
+E100isa     = ISAPNP\INT10C1 ; PRO/100 ISA
+Epro        = ISAPNP\INT1030 ; PRO/10 ISA
+Epro10      = ISAPNP\INT1031 ; PRO/10+ ISA
+Epro4       = ISAPNP\INT1031 ; PRO/10+ ISA
+Ex10        = ISAPNP\INT1100 ; ETHEREXPRESS 10
+IEEPRO      = ISAPNP\INT1030 ; Intel EtherExpress PRO Ethernet Adapter (in PnP mode)
+OCT2M3118   = ISAPNP\OLC9430 ; Olicom Token-Ring ISA 16/4 (OC-3118)
+TRSR1070    = ISAPNP\IBM1070 ; IBM Auto Wake 16/4 Token-Ring ISA Adapter
+TRSR1080    = ISAPNP\IBM1080 ; IBM Turbo 16/4 Token-Ring Adapter (72H3500)
+SMC8416     = ISAPNP\SMC8416 ; SMC EtherEz PnP
+
+; -----------------------------------------------------------------
+; PCMCIA cards
+;
+[PcmciaAdapters]
+AMB8002         = PCMCIA\AmbiCom_Inc-AMB8002-55A4                               ;Ambicom AMB8002
+C21             = PCMCIA\TOSHIBA-MODEM+ETHERNET_PC_CARD-148C                    ;Toshiba Modem+Ethernet PC Card
+C550            = PCMCIA\COMPAQ-MICROCOM_550_56K_MODEM_+_10/100_ETHERNET-A75B   ;Compaq Microcom 550 56K Modem + 10/100 Ethernet
+CBE             = PCI\VEN_1011&DEV_0019&SUBSYS_0002115D                         ;Xircom Cardbus 10/100
+CC10BT          = PCMCIA\Megahertz-CC10BT/2-BF05                                ;Megahertz CC/XJ10BT or CC/XJ10BC
+CE2XPS          = PCMCIA\XIRCOM-CREDITCARD_10BASE-T-9F5B                        ;Xircom CreditCard Ethernet IIps
+CE550		= PCMCIA\COMPAQ-MICROCOM_550_56K_MODEM_+_10/100_ETHERNET-A75B   ;  Compaq Microcom 550 56K Modem + 10/100 Ethernet
+CEM28XPS        = PCMCIA\XIRCOM-CREDITCARD_ETHERNET+MODEM_III-592B              ;Xircom CreditCard Ethernet+Modem 28.8
+CEM28XPS        = PCMCIA\XIRCOM-CREDITCARD_ETHERNET+MODEM_III-D1A2              ;Xircom CreditCard Ethernet+Modem 28.8
+CEM28XPS        = PCMCIA\Xircom-CreditCard_Ethernet+Modem_28.8-C346             ;Xircom CEM28
+CEM33XPS        = PCMCIA\XIRCOM-CREDITCARD_ETHERNET+MODEM_33.6-5AA1             ;Xircom CreditCard Ethernet+Modem 33.6
+CEM33XPS        = PCMCIA\Xircom-CreditCard_Ethernet+Modem_33.6-05DD             ;Xircom CreditCard Ethernet+Modem 33.6
+CEM33XPS        = PCMCIA\Xircom-CreditCard_Ethernet+Modem_33.6-05DD             ;Xircom CEM36
+CEM56		= PCMCIA\Xircom-CreditCard_Ethernet_10/100_+_Modem_56-C027	;Xircom CreditCard Ethernet Adapter 10/100+Modem 56
+CEM56           = PCMCIA\XIRCOM-16-BIT_ETHERNET_+_MODEM_56-0B62                 ;Xircom Ethernet + Modem 56
+CEM56           = PCMCIA\Xircom-CreditCard_Ethernet_10/100_+_Modem_56-C027      ; Xircom CEM56-100
+CEM56NT         = PCMCIA\XIRCOM-16-BIT_ETHERNET_+_MODEM_56-0B62                 ;Xircom Ethernet + Modem 56
+CEM56NT         = PCMCIA\Xircom-CreditCard_Ethernet_10/100_+_Modem_56-C027      ;Xircom Ethernet 10/100 + Modem 56
+CENDIS3         = PCMCIA\Xircom-CreditCard-10Base-T-5FFA                        ;Xircom CE-10
+CENDIS3         = PCMCIA\Xircom-CreditCard-10Base-T-9FAB                        ;Xircom CE-10/A
+CENDIS3         = PCMCIA\Xircom-CreditCard-10Base-T-B00D                        ; Xircom CE-10
+CM2NDIS3        = PCMCIA\Xircom-CreditCard_Ethernet+Modem_II-3DFC               ; Xircom CEM2
+CE2XPS          = PCMCIA\Xircom-CreditCard-10Base-T-5331                        ;Xircom CE2-PS
+CE2XPS          = PCMCIA\Xircom-CreditCard-10Base-T-64BA                        ;Xircom CE2-PS
+CE3             = PCMCIA\Xircom-CreditCard-10/100-B548                          ;Xircom CE3/CE3B
+CEM28XPS        = PCMCIA\XIRCOM-CREDITCARD_ETHERNET+MODEM_28.8-C6CB             ;Xircom CreditCard Ethernet+Modem 28.8
+CENDIS3         = PCMCIA\Xircom-CreditCard-10Base-T-5FFA                        ;Xircom CE-10
+CENDIS3         = PCMCIA\Xircom-CreditCard-10Base-T-9FAB                        ;Xircom CE-10/A
+CENDIS3         = PCMCIA\Xircom-CreditCard-10Base-T-B00D                        ; Xircom CE-10
+CM2NDIS3        = PCMCIA\Xircom-CreditCard_Ethernet+Modem_II-3DFC               ; Xircom CEM2
+COMBO           = PCMCIA\OLICOM-GOCARD_TOKEN-RING_16/4+MODEM_14400-8095         ; Olicom GoCard TR/Modem 144 PC Card (OC-3230)
+COMBO           = PCMCIA\OLICOM-GOCARD_TRN/MODEM_336-9566                       ; Olicom GoCard TRN/Modem 336 PC Card (OC-3232)
+CPQNDIS         = PCMCIA\Compaq-Ethernet_LAN_Card-049B                          ;Compaq Ethernet
+CTNDNT          = PCMCIA\Xircom-CreditCard_Token_Ring-0BDF                      ;Xircom PS-CT2-16CTP
+CTNDNT          = PCMCIA\Xircom-CreditCard_Token_Ring-8227                      ;Xircom CT-16CTP
+DE660		= PCMCIA\D-Link-DE-660-BD75	                                ;D-Link DE-660 Ethernet PC Card
+DLINKDE650      = PCMCIA\D-Link-DE-650-70C5                                     ;D-Link DE-650
+DLINKDE650      = PCMCIA\D-Link-DE-650-9866                                     ;D-Link DE-650
+DLINKDE650      = PCMCIA\D-Link-DE-650-BF51                                     ;D-Link DE-650 Ethernet PCMCIA Adapter
+DLINKDE650      = PCMCIA\D-Link-DE-650-E649                                     ;D-Link DE-650
+EL3C574         = PCMCIA\3Com-3C574-TX_Fast_Etherlink_PC_Card-8F53              ;3Com 3C574-TX
+EL3C589         = PCMCIA\3Com_Corporation-3C589D-9CA6                           ;3Com 3C589d PCMCIA
+ELNK16          = PCMCIA\3Com_Corporation-3C589-3971                            ;3Com 3C589/A
+ELNK16          = PCMCIA\3Com_Corporation-3C589-75D5                            ;3Com 3C589/A
+ELNK16B         = PCMCIA\3Com_Corporation-3C589-1090                            ;3Com 3C589b PCMCIA
+ELNK16B         = PCMCIA\3Com_Corporation-3C589-1090                            ;3Com 3C589b PCMCIA
+ELNK16B         = PCMCIA\3Com_Corporation-3C589-ADF2                            ;3Com 3C589B/C
+ELNK16D         = PCMCIA\3Com_Corporation-3C589D-9CA6                           ;3Com 3C589d PCMCIA
+ELNK16D         = PCMCIA\3Com_Corporation-3C589D-9CA6                           ;3Com 3C589d PCMCIA
+EN2226          = PCMCIA\ACCTON-FAST_ETHERCARD-16-E1E4                          ;Accton Fast Ethernet-16 10/100 PC Card
+ENET            = PCMCIA\TOSHIBA_INFORMATION_SYSTEMS-ADVANCED_ETHERNET_PC_CARD_(10/100)-2992 ;Toshiba TPCENET 10/100 Network Adapter
+EPC             = PCMCIA\Compaq-Netelligent_10/100_PC_Card-02C3                 ;Compaq Netelligent 10/100 PC Card
+GENA            = PCMCIA\GENERIC-ETHERNET_10/100_PC_CARD-7FEC                   ;Ethernet 10/100 PC Card
+GOCARD          = PCMCIA\OLICOM-ETHERNET-0C79                                   ; Olicom Ethernet GoCard (OC-2220)
+GOCARD          = PCMCIA\Olicom-Ethercom-1018                                   ;Olicom Ethercom (OC-2220)
+GOCARD          = PCMCIA\Olicom-Ethernet-0C79                                   ;Olicom Ethercom (OC-2220)
+GOCARDMF        = PCMCIA\OLICOM-GOCARD_ETHERNET+MODEM_28800-272C                ;Olicom GoCard ET/Modem 288 PC Card (OC2231);
+GOCARDMF        = PCMCIA\Olicom-GoCard_Eth/Modem_336-9590                       ;Olicom Eth/Modem+33.6 (OC-2232)
+GOCARDMF31      = PCMCIA\OLICOM-GOCARD_ETHERNET+MODEM_28800-272C                ;Olicom GoCard ET/Modem 288 PC Card (OC2231);
+GOCARDMF32      = PCMCIA\OLICOM-GOCARD_ETH/MODEM_336-9590                       ;Olicom GoCard Eth/Modem 336 PC Card (OC2232);
+IBMEXMP         = PCMCIA\IBM-Etherjet_PC_Card-3FE2                              ;IBM Etherjet
+IBMEXWNT        = PCMCIA\IBM-Etherjet_PC_Card-3FE2                              ;Toshiba Noteworthy
+IBMTOK          = PCMCIA\IBM-TOKEN_RING-EFA1                                    ;IBM Token Ring
+IBMTOKPCMCIA    = PCMCIA\IBM-TOKEN_RING-013F                                    ; 3Com 3C689 or IBM Auto 16/4 CCA
+IPC5008A        = PCMCIA\TOSHIBA-10/100_ETHERNET_PC_CARD-476D                   ;Toshiba 10/100 Ethernet PC Card
+IPC5008A        = PCMCIA\TOSHIBA-10/100_ETHERNET_PC_CARD-6DD6                   ;Toshiba 10/100 Ethernet PC Card
+LE56            = PCMCIA\LEGEND-EASY_56K_MODEM+10-100_ETHERNET+GSM-33CC         ;Legend Easy 56K Modem+10-100 Ethernet+GSM
+LINKSYSEC2T     = PCMCIA\LINKSYS-E-CARD-0BB7                                    ;Linksys E-Card
+LINKSYSEC2T     = PCMCIA\LINKSYS-E-CARD-6C10                                    ;Linksys E-Card
+LINKSYSEC2T     = PCMCIA\LINKSYS-E-CARD-A2FC                                    ;Linksys E-Card
+LINKSYSEC2T     = PCMCIA\LINKSYS-E-CARD-BC6B                                    ;Linksys E-Card
+LINKSYSEC2T     = PCMCIA\LINKSYS-E-CARD-BCA0                                    ;Linksys E-Card
+LINKSYSEC2T     = PCMCIA\LINKSYS-E-CARD-E28A                                    ;Linksys E-Card
+LINKSYSEC2T     = PCMCIA\Linksys-Combo_PCMCIA_EthernetCard_(EC2T)-86BD          ; Linksys EC2T
+M16A            = PCMCIA\INTEL-ETHEREXPRESS(TM)_PRO/100_PC_CARD_MOBILE_ADAPTER16-33F8 ; M16A
+M16B		= PCMCIA\Intel-EtherExpress(TM)_PRO/100_LAN/Modem_PC_Card_Adapter-3B00  ;  Intel EtherExpress PRO/100 LAN/Modem PC Card Adapter
+MDGMPPCMCIA     = PCMCIA\MADGE-SMART_16/4_PCMCIA_RINGNODE-0757                  ; "Madge Smart 16/4 PCMCIA Ringnode"
+MICRODYNEPCMCIA = PCMCIA\IBM_Corp.-Ethernet-1B1C                                ; IBM Ethernet II Compatible PCMCIA
+MSMDGMPPCMCIA   = PCMCIA\MADGE-SMART_16/4_PCMCIA_RINGNODE-0757                  ; Madge Smart Ringnode
+MSMDGMPPCMCIA   = PCMCIA\MADGE-SMART_16/4_PCMCIA_RINGNODE-3682                  ; Madge Smart Ringnode
+NE2000IBMCOMPAT = PCMCIA\IBM_Corp.-Ethernet-1B1C                                ; IBM Ethernet II PCMCIA
+NE2000IBMCOMPAT = PCMCIA\IBM_Corp.-Ethernet-1B1C                                ; IBM Ethernet II PCMCIA
+NE2000SOCKETEA  = PCMCIA\Socket_Communications,_Inc.-Socket_EA_PC_Card_LAN_Adapter-AE82         ; Socket EA
+NE2000SOCKETEA  = PCMCIA\Socket_Communications_Inc-Socket_EA_PCMCIA_LAN_Adapter_E-09CF          ; Socket EA
+NE2000SOCKETEA  = PCMCIA\Socket_Communications_Inc-Socket_EA_PCMCIA_LAN_Adapter_Revision_E-09CF ; SocketEA PCMCIA
+NE4000PCMCIA    = PCMCIA\IBM_Corp.-Ethernet-1B1C                                ; Microdyne NE4000
+NE4000PCMCIA    = PCMCIA\IBM_Corp.-Ethernet-6446                                ; NE4100 Infomover PCMCIA
+NE4000PCMCIA    = PCMCIA\IBM_Corp.-Ethernet-6446                                ; NE4100 Infomover PCMCIA
+NSCNE4100       = PCMCIA\National_Semiconductor-InfoMover_NE4100-2C4D           ;IBM Ethernet CreditCard II
+OCT2M3221	= PCMCIA\OLICOM-TR_16/4_II-805B                                 ;Olicom GoCard Token-Ring PC Card (OC-3221)
+OCTK3220        = PCMCIA\OLICOM-TR16/4-167B                                     ;Olicom GoCard Token-Ring PC Card (OC-3220)
+OCTK3220        = PCMCIA\Olicom-TR16/4-167B                                     ;Olicom Token Ring (OC-3220)
+OCTK3221        = PCMCIA\OLICOM-TR_16/4_II-805B                                 ;Olicom GoCard Token-Ring PC Card (OC-3221)
+OCTK3221        = PCMCIA\Olicom-TR16/4_II-805B                                  ;Olicom GoCard TR (OC-3221)
+OCTK3230        = PCMCIA\OLICOM-GOCARD_TOKEN-RING_16/4+MODEM_14400-8095         ;Olicom GoCard TR/Modem 144 PC Card (OC-3230)
+OCTK3232        = PCMCIA\OLICOM-GOCARD_TRN/MODEM_336-9566                       ;Olicom GoCard TRN/Modem 336 PC Card (OC-3232)
+OCTX3220        = PCMCIA\OLICOM-TR16/4-167B                                     ;Olicom GoCard Token-Ring PC Card (OC-3220)
+OCTX3221        = PCMCIA\OLICOM-TR_16/4_II-805B                                 ;Olicom GoCard Token-Ring PC Card (OC-3221)
+OCTX3230        = PCMCIA\OLICOM-GOCARD_TOKEN-RING_16/4+MODEM_14400-8095         ;Olicom GoCard TR/Modem 144 PC Card (OC-3230)
+OCTX3232        = PCMCIA\OLICOM-GOCARD_TRN/MODEM_336-9566                       ;Olicom GoCard TRN/Modem 336 PC Card (OC-3232)
+OTC4ODNT        = PCMCIA\Ositech-Trumpcard:Four_of_Diamonds_Ethernet-AC58       ;Ositech 4OD Eth 10
+OTC7ODNT        = PCMCIA\Ositech-Trumpcard:Seven_of_Diamonds_Ethernet-7356      ;Ositech 7OD Eth 10/100
+OTCJODNT        = PCMCIA\Ositech-Trumpcard:Jack_of_Diamonds_Modem+Ethernet-065B ;Ositech JOD Eth+33.6
+OTCJODNT        = PCMCIA\Ositech-Trumpcard:Jack_of_Diamonds_Modem+Ethernet-27EF ;Ositech JOD Eth+28.8
+OTCJODNT        = PCMCIA\Ositech-Trumpcard:Jack_of_Diamonds_Modem+Ethernet-6E5D ;Ositech JOD Eth+14.4
+OTCJOHNT        = PCMCIA\Ositech-Trumpcard:Jack_of_Hearts_Modem+Ethernet-D9C1   ;Ositech JOH Eth+33.6
+PCMCIA          = PCMCIA\OLICOM-TR16/4-167B                                     ;Olicom GoCard TR 16/4
+PCMCIA          = PCMCIA\OLICOM-TR_16/4_II-805B                                 ;Olicom GoCard Token-Ring PC Card (OC-3221)
+RLNET_PCMCIA    = PCMCIA\RadioLAN-10BaseRadio_Network_(PC_Card)-7510            ;RadioLAN/10 PC Card RadioNET Interface
+TRSRPCM1        = PCMCIA\IBM-TOKEN_RING-EFA1                                    ; Toshiba Noteworthy
+TRSRPCM1        = PCMCIA\IBM-TOKEN_RING-EFA1                                    ; IBM 16/4 Token-Ring Credit Card Adapter (II)
+TRSRPCM3        = PCMCIA\IBM-TOKEN_RING-013F                                    ; DEC Token Ring Auto 16/4 Adapter II
+TRSRPCM3        = PCMCIA\IBM-TOKEN_RING-013F                                    ; IBM Auto 16/4 Token-Ring Credit Card Adapter
+TRSRPCM4        = PCMCIA\IBM-TOKEN_RING-F8CF                                    ; IBM Turbo 16/4 Token Ring
+TRSRPCM4        = PCMCIA\IBM-TOKEN_RING-F8CF                                    ; IBM Turbo 16/4 Token-Ring PC Card
+TRSRPCM5        = PCMCIA\IBM-TOKEN_RING-3D12                                    ; IBM Turbo 16/4 Token-Ring PC Card 2
+; -----------------------------------------------------------------
+; Protocols
+;
+[NetProtocols]
+ATALK       = MS_AppleTalk
+NWLNKIPX    = MS_NWIPX
+NWLNKSPX    = MS_NWSPX
+RASPPTP     = MS_PPTP
+TC          = MS_TCPIP
+STREAMS     = MS_Streams
+NETMON      = MS_NetMon
+ISOTP       = MS_Isotpsys
+DLC         = MS_DLC
+NDISWAN     = MS_NDISWAN
+
+; -----------------------------------------------------------------
+; Services
+;
+[NetServices]
+DHCP        = MS_DHCPServer
+NETBIOS     = MS_NetBios
+NETBT       = MS_NetBT
+NETMONTOOLS = MS_NetMon
+NWLNKNB     = MS_NWNB
+RAS         = RAS                 ; this is a special case. leave it alone.
+RasMan      = RAS                 ; this is a special case. leave it alone.
+RASSVR      = MS_RasSrv
+SNMP        = MS_SNMP
+SRV         = MS_Server
+SimpTcp     = MS_SimpTCP
+STCPIP      = MS_SimpTCP
+WLBS        = MS_WLBS             ; for WLBS
+Convoy      = null             ; for WLBS
+steel       = MS_RasRtr
+RelayAgent  = MS_DHCPRelay
+DNS         = MS_DNSServer
+INETSRV     = MS_IIS
+IPXRIP      = MS_IPX_RIP
+IPRIP       = MS_IP_RIP
+SAP         = MS_NwSapAgent
+RPCBANYAN   = MS_RPCBanyan
+SFM         = MS_SFM
+TCPPRINT    = MS_TCPIPPrinting
+WINS        = MS_WINS
+MACPRINT    = MACPRINT
+AFPSVC      = MACFILE
+DFS         = DFS
+"NetManage NFS Client (InterDrive)" = "IDRIVE"
+"NetManage LPD Service" = "NETM_WLPD"
+
+; -----------------------------------------------------------------
+; Clients
+;
+[NetClients]
+BROWSER     = MS_MSClient
+RPCLOCATE   = MS_MSClient
+WKSTA       = MS_MSClient
+NWRDR       = MS_NWClient
+NWWKSTA     = MS_NWClient
+
+
+
+
+
+
