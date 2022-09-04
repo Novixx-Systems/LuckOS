@@ -28,3 +28,6 @@
  Then in 2021 that computer broke (the harddisk)
  
  Then on 8/31/2022 I started this
+
+# Product key
+ DPDQK-H94J9-TWMTR-K2K69-FRKHM
