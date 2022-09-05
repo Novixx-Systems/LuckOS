@@ -564,7 +564,7 @@ wuv3is.dll         = 1,,,,,,,2,0,0
 console.dll  = 1,,,,,,,2,0,0
 dbghelp.dll  = 1,,,,,,_x,2,0,0,,1,2
 more.com     = 1,,,,,,,2,1,0
-winver.exe   = 1,,,,,,,2,1,0
+luckver.exe  = 1,,,,,,,2,1,0
 arial.ttf    = 1,,,,,,,22,0,0,,1,22
 trebuc.ttf   = 1,,,,,,,22,0,0,,1,22
 trebucbd.ttf = 1,,,,,,,22,0,0,,1,22
@@ -17794,7 +17794,7 @@ winsadmn.exe  , 2
 winsadmn.hlp  , 2
 winsrpc.dll   , 2
 winsmon.dll   , 2  
-winver.exe    , 1
+luckver.exe   , 1
 wizmgr.exe    , 2
 wlandrv2.sys  , 4
 wlbs.dll      , 2
