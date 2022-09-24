@@ -38,5 +38,6 @@
 :: build the LuckOS operating system
 pushd .
 cd M:\NVXLKOS\CDBOOT
+:: call the iso maker script
 call maker
 popd
